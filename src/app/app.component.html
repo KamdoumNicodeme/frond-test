@@ -8,19 +8,18 @@
       </div>
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-4">
-          <a  class="text-gray-300 hover:text-white" routerLink="/location" >Home</a>
-          <a class="text-gray-300 hover:text-white" routerLink="/">Login</a>
+          <a class="text-gray-300 hover:text-white" routerLink="/location">Home</a>
+          <ng-container *ngIf="token; else loggedOut">
+            <a class="text-gray-300 hover:text-white" (click)="logout()">Logout</a>
+          </ng-container>
+          <ng-template #loggedOut>
+            <a class="text-gray-300 hover:text-white" routerLink="/">Login</a>
+          </ng-template>
           <a class="text-gray-300 hover:text-white" routerLink="/register">Register</a>
-
         </div>
       </div>
     </div>
   </div>
 </nav>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
-
-
-
+<router-outlet></router-outlet>

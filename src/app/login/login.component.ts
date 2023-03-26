@@ -14,6 +14,8 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
+
+
   login() {
     let token: string; // Déclaration de la variable token
 
@@ -22,8 +24,10 @@ export class LoginComponent {
         (response) => {
           token = response.token; // Affectation de la valeur du token
           localStorage.setItem("token",token);
+
           // Si le token est présent, rediriger l'utilisateur vers la page de localisation
-          this.router.navigate(['/location']);
+          // this.router.navigate(['/location']).then(r => r);
+          window.location.href = '/location'
         },
         error => {
           // Si une erreur s'est produite, afficher un message d'erreur

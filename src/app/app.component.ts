@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frond-test';
+
+  token = localStorage.getItem("token");
+
+
+
+
+
+  logout() {
+    localStorage.removeItem("token");
+    window.location.href = '/'
+  }
 }

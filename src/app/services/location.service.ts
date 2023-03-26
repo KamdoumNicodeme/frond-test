@@ -21,6 +21,8 @@ export class LocationService {
         if (event.type === 'locationUpdated') {
           // Mettre à jour la position de l'utilisateur dans votre application Angular
           const updatedUser = event.data.user;
+          updatedUser.data.user.locations.longitude;
+          updatedUser.data.user.locations.latitude;
           // ...
         }
       });
