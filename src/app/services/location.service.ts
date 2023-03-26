@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {WebSocketSubject} from "rxjs/internal/observable/dom/WebSocketSubject";
 import {webSocket} from "rxjs/webSocket";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {LocationU} from "./LocationU";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +11,7 @@ import {webSocket} from "rxjs/webSocket";
 export class LocationService {
   private webSocketSubject: WebSocketSubject<any>;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     // Créer une instance de WebSocket et la connecter à l'URL de votre serveur Laravel
     this.webSocketSubject = webSocket('ws://localhost:8000/ws');
 
@@ -34,4 +37,22 @@ export class LocationService {
     };
     this.webSocketSubject.next(payload);
   }
+
+
+
+
+  private apiUrl = 'http://localhost:8000/api/locations';
+
+
+
+  public  getLocations(): Observable<{ locations: LocationU[] }> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      })
+    };
+    return this.http.get<{ locations: LocationU[] }>(this.apiUrl, httpOptions);
+  }
+
+
 }
