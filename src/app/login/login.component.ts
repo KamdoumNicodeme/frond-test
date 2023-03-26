@@ -15,9 +15,13 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   login() {
+    let token: string; // Déclaration de la variable token
+
     this.authService.login(this.email, this.password)
       .subscribe(
-        (token) => {
+        (response) => {
+          token = response.token; // Affectation de la valeur du token
+          localStorage.setItem("token",token);
           // Si le token est présent, rediriger l'utilisateur vers la page de localisation
           this.router.navigate(['/location']);
         },
@@ -28,4 +32,5 @@ export class LoginComponent {
         }
       );
   }
+
 }

@@ -22,15 +22,21 @@ export class LocationComponent /*implements AfterViewInit*/ {
     // Ajouter une couche de tuiles OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-      maxZoom: 18
+      maxZoom: 25
     }).addTo(map);
+
+
+    const customIcon = L.icon({
+      iconUrl: 'https://i.ibb.co/ftbRwZD/map-marker-2-xxl.png', // L'URL de l'icône personnalisée
+      iconSize: [32, 32], // La taille de l'icône en pixels
+    });
     //
     // //Récupérer les positions des utilisateurs à partir de l'API
     this.locationService.getLocations().subscribe(result => {
       const locations = result.locations;
       locations.map(location => {
-        // Ajouter un marqueur pour chaque position d'utilisateur
-        L.marker([location.latitude, location.longitude]).addTo(map)
+        // Ajouter un marqueur pour chaque position d'utilisateur avec l'icône personnalisée
+        L.marker([location.latitude, location.longitude], { icon: customIcon }).addTo(map)
           .bindPopup('User ' + location.user_id + '<br>Lat: ' + location.latitude + '<br>Long: ' + location.longitude);
       });
     });
